@@ -4,6 +4,7 @@ import lombok.Data;
 
 import java.util.List;
 
+// this class is used for pagination and sorting functionality
 @Data
 public class PostResponse {
 

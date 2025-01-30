@@ -16,21 +16,32 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Service implementation class for managing blog posts.
+ * Handles CRUD operations and pagination for blog posts.
+ */
 @Service
 public class PostServiceImpl implements PostService {
 
-    // Repository injection for database operations
+    /**
+     * Repository for database operations on Post entities
+     */
     private PostRepository postRepository;
 
-    // Constructor injection of PostRepository
+    /**
+     * Constructor for dependency injection of PostRepository
+     * @param postRepository Repository instance for Post entity operations
+     */
     @Autowired
     public PostServiceImpl(PostRepository postRepository) {
         this.postRepository = postRepository;
     }
 
-    // Creates a new blog post
-    // @param postDto Data transfer object containing post details
-    // @return PostDto object of the created post
+    /**
+     * Creates a new blog post
+     * @param postDto Data transfer object containing post details
+     * @return PostDto object of the created post
+     */
     @Override
     public PostDto createPost(PostDto postDto) {
         // Convert DTO to entity
@@ -45,8 +56,14 @@ public class PostServiceImpl implements PostService {
         return postResponse;
     }
 
-    // Retrieves all blog posts from the database
-    // @return List of all posts as DTOs
+    /**
+     * Retrieves paginated and sorted list of all blog posts
+     * @param pageNo Page number to retrieve (zero-based)
+     * @param pageSize Number of items per page
+     * @param sortBy Field to sort by
+     * @param sortDir Sort direction (asc/desc)
+     * @return PostResponse containing paginated list of posts and metadata
+     */
     @Override
     public PostResponse getAllPosts(int pageNo, int pageSize, String sortBy, String sortDir) {
 
@@ -74,10 +91,12 @@ public class PostServiceImpl implements PostService {
         return postResponse;
     }
 
-    // Finds a specific post by its ID
-    // @param id The ID of the post to find
-    // @return PostDto of the found post
-    // @throws ResourceNotFoundException if post not found
+    /**
+     * Retrieves a specific post by its ID
+     * @param id The ID of the post to find
+     * @return PostDto of the found post
+     * @throws ResourceNotFoundException if post with given ID is not found
+     */
     @Override
     public PostDto getPostById(long id) {
         // Find post or throw exception if not found
@@ -85,11 +104,13 @@ public class PostServiceImpl implements PostService {
         return mapToDto(post);
     }
 
-    // Updates an existing post
-    // @param postDto New post data
-    // @param id ID of post to update
-    // @return Updated PostDto
-    // @throws ResourceNotFoundException if post not found
+    /**
+     * Updates an existing post
+     * @param postDto New post data to update with
+     * @param id ID of the post to update
+     * @return Updated PostDto
+     * @throws ResourceNotFoundException if post with given ID is not found
+     */
     @Override
     public PostDto updatePost(PostDto postDto, long id) {
         // Find post or throw exception if not found
@@ -105,9 +126,11 @@ public class PostServiceImpl implements PostService {
         return mapToDto(updatedPost);
     }
 
-    // Deletes a post by its ID
-    // @param id ID of post to delete
-    // @throws ResourceNotFoundException if post not found
+    /**
+     * Deletes a post by its ID
+     * @param id ID of the post to delete
+     * @throws ResourceNotFoundException if post with given ID is not found
+     */
     @Override
     public void deletePostById(long id) {
         // Find post or throw exception if not found
@@ -115,9 +138,11 @@ public class PostServiceImpl implements PostService {
         postRepository.delete(post);
     }
 
-    // Utility method to convert Post entity to PostDto
-    // @param post Post entity to convert
-    // @return PostDto representation of the entity
+    /**
+     * Converts Post entity to PostDto
+     * @param post Post entity to convert
+     * @return PostDto representation of the entity
+     */
     private PostDto mapToDto(Post post) {
         PostDto postDto = new PostDto();
         postDto.setId(post.getId());
@@ -127,9 +152,11 @@ public class PostServiceImpl implements PostService {
         return postDto;
     }
 
-    // Utility method to convert PostDto to Post entity
-    // @param postDto PostDto to convert
-    // @return Post entity representation of the DTO
+    /**
+     * Converts PostDto to Post entity
+     * @param postDto PostDto to convert
+     * @return Post entity representation of the DTO
+     */
     private Post mapToEntity(PostDto postDto) {
         Post post = new Post();
         post.setTitle(postDto.getTitle());
