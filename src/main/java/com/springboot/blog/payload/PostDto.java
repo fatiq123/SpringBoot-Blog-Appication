@@ -10,7 +10,7 @@ import java.util.Set;
 @Data
 public class PostDto {
 
-    private long id;
+    private Long id;
 
     // title should not be empty or null
     // title should have at least 2 characters
