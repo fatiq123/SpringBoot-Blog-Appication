@@ -7,6 +7,7 @@ import com.springboot.blog.payload.LoginDto;
 import com.springboot.blog.payload.RegisterDto;
 import com.springboot.blog.repository.RoleRepository;
 import com.springboot.blog.repository.UserRepository;
+import com.springboot.blog.security.JwtTokenProvider;
 import com.springboot.blog.service.AuthService;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -26,6 +27,8 @@ public class AuthServiceImpl implements AuthService {
     // Remember we are coding our own authentication for auth.
     // that is why we are injecting authenticationManager interface
     // and it calls DAO authentication provider for database authentication.
+    // this is for login as we are matching existing data from database to new User entered data.
+    // and check if matches or not
     private AuthenticationManager authenticationManager;
 
     // Note for registering a new User we need following dependencies to inject
@@ -33,14 +36,19 @@ public class AuthServiceImpl implements AuthService {
     private RoleRepository roleRepository;
     private PasswordEncoder passwordEncoder;
 
+    // for jwt
+    private JwtTokenProvider jwtTokenProvider;
+
     public AuthServiceImpl(AuthenticationManager authenticationManager,
                            UserRepository userRepository,
                            RoleRepository roleRepository,
-                           PasswordEncoder passwordEncoder) {
+                           PasswordEncoder passwordEncoder,
+                           JwtTokenProvider jwtTokenProvider) {
         this.authenticationManager = authenticationManager;
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
+        this.jwtTokenProvider = jwtTokenProvider;
     }
 
     @Override
@@ -53,7 +61,9 @@ public class AuthServiceImpl implements AuthService {
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        return "User logged-in successfully";
+        String token = jwtTokenProvider.generateToken(authentication);
+
+        return token;
     }
 
 
