@@ -40,7 +40,7 @@ public class CategoryController {
     }
 
     @PreAuthorize("hasRole('ADMIN')")
-    @GetMapping
+    @PutMapping
     public ResponseEntity<CategoryDto> updateCategory(@RequestBody CategoryDto categoryDto, Long id) {
         CategoryDto updatedCategory = categoryService.updateCategory(categoryDto, id);
         return new ResponseEntity<>(updatedCategory, HttpStatus.OK);
@@ -48,7 +48,7 @@ public class CategoryController {
 
 
     @PreAuthorize("hasRole('ADMIN')")
-    @GetMapping("/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteCategory(@PathVariable Long id) {
         categoryService.deleteCategory(id);
         return  ResponseEntity.ok("Category deleted successfully!.");
