@@ -1,4 +1,4 @@
-# Spring Boot Blog REST API - Complete Solution Documentation
+# Spring Boot Blog REST API - Documentation
 
 This document provides a comprehensive overview of the Spring Boot Blog REST API implementation.
 
