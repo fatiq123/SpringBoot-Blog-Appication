@@ -1,9 +1,7 @@
 package com.springboot.blog.payload;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.springboot.blog.entity.Role;
+import lombok.*;
 
 @Getter
 @Setter
@@ -15,5 +13,6 @@ public class RegisterDto {
     private String username;
     private String email;
     private String password;
+    private String role;
 
 }
