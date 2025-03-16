@@ -103,5 +103,32 @@ Key configurations in application.properties:
 - Proper response status codes
 - Pagination metadata
 
+
+## 🚀 Deployment
+
+- **Backend API**: Deployed on AWS Elastic Beanstalk
+- **Database**: Hosted on AWS RDS (MySQL)
+
+## 🔧 Configuration
+
+The application supports multiple environments through profile-based configuration:
+- Development
+- QA
+- Production
+
+Key configuration properties include:
+- JWT secret and expiration
+- Database connections
+- Security settings
+
+## 🏃‍♂️ How to Run
+
+1. Clone the repository
+2. Configure MySQL database
+3. Update application.properties with your database credentials
+4. Run using Maven: `mvn spring-boot:run`
+5. Access Swagger UI: `http://localhost:8080/swagger-ui.html`
+
+
 This implementation provides a secure, scalable, and well-structured blog API with proper
 authentication, authorization, and data management capabilities.
